@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.entity.Car;
+import org.example.entity.Part;
 import org.example.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,14 @@ public class CarService {
             throw new IllegalStateException("Авто с таким ID не существует!");
         }else{
             carRepository.deleteById(id);
+        }
+    }
+
+    public List<Part> findAllCarParts(UUID carId){
+        if(!carRepository.existsById(carId)){
+            throw new IllegalStateException("Авто с таким ID не существует!");
+        } else {
+        return carRepository.getReferenceById(carId).getParts();
         }
     }
 }

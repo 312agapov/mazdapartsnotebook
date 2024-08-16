@@ -1,7 +1,9 @@
 package org.example.controller;
 
 import org.example.entity.Car;
+import org.example.entity.Part;
 import org.example.service.CarService;
+import org.example.service.PartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,18 @@ public class CarController {
     @Autowired
     CarService carService;
 
+    @Autowired
+    PartService partService;
+
     @GetMapping
     public List<Car> findAllCars(){
         return carService.findAllCars();
+    }
+
+    @GetMapping(path = "/{carId}")
+    public ResponseEntity<List<Part>> findAllCarParts(@PathVariable ("carId") UUID carId){
+        carService.findAllCarParts(carId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping

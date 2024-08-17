@@ -17,10 +17,10 @@ import java.util.UUID;
 public class CarController {
 
     @Autowired
-    CarService carService;
+    private CarService carService;
 
     @Autowired
-    PartService partService;
+    private PartService partService;
 
     @GetMapping
     public List<Car> findAllCars(){
@@ -29,8 +29,7 @@ public class CarController {
 
     @GetMapping(path = "/{carId}")
     public ResponseEntity<List<Part>> findAllCarParts(@PathVariable ("carId") UUID carId){
-        carService.findAllCarParts(carId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(carService.findAllCarParts(carId));
     }
 
     @PostMapping
@@ -46,7 +45,7 @@ public class CarController {
     }
 
     @DeleteMapping(path = "/{carId}")
-    public ResponseEntity deleteCarById(@PathVariable ("carId") UUID id){
+    public ResponseEntity<?> deleteCarById(@PathVariable ("carId") UUID id){
         carService.deleteCarById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

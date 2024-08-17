@@ -23,7 +23,10 @@ public class Car {
     private String model;
     private int buildYear;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@ManyToOne
+    //private User owner;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonManagedReference
     private List<Part> parts;
 

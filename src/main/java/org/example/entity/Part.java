@@ -21,8 +21,4 @@ public class Part {
     private String description;
     private int price;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id")
-    @JsonBackReference
-    private Car car;
 }

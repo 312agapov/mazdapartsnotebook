@@ -7,6 +7,7 @@ import org.example.repository.PartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,8 +25,15 @@ public class PartService {
         } else {
             Car carToLink = carRepository.findById(carId).orElseThrow(() ->
                     new IllegalStateException("Авто не был найден в БД!"));
-            part.setCar(carToLink);
             partRepository.save(part);
+            if(carToLink.getParts() != null){
+                carToLink.getParts().add(part);
+            } else {
+                List<Part> list = new ArrayList<Part>();
+                list.add(part);
+                carToLink.setParts(list);
+            }
+            carRepository.save(carToLink);
         }
     }
 }

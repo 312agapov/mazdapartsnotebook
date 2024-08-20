@@ -38,6 +38,22 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/total/{carId}")
+    public int findTotal(@PathVariable ("carId") UUID carId){
+        return carService.findTotalCarPartsPrice(carId);
+    }
+
+    @GetMapping(path = "/owner/{ownerId}")
+    public int findSumOfUserParts(@PathVariable ("ownerId") UUID ownerId){
+        return carService.findSumOfUserCarsParts(ownerId);
+    }
+
+    @PostMapping(path = "/addcartoowner/{ownerId}")
+    public ResponseEntity<Car> addCarToOwner(@PathVariable ("ownerId") UUID ownerId, @RequestParam UUID carId){
+        carService.addCarToOwner(ownerId,carId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PutMapping(path = "/{carId}")
     public ResponseEntity<Car> editCarById(@PathVariable ("carId") UUID id, @RequestBody Car car){
         Car editedCar = carService.editCarById(id,car);

@@ -23,8 +23,8 @@ public class Car {
     private String model;
     private int buildYear;
 
-    //@ManyToOne
-    //private User owner;
+    @ManyToOne
+    private User owner;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonManagedReference
